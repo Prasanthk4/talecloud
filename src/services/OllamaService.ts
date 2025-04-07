@@ -25,9 +25,16 @@ interface ElevenLabsResponse {
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:11434';
 const USE_CLOUD_API = true; // Force cloud API mode since we have keys
 
-// API Keys from environment variables with localStorage fallback
+// API Keys from localStorage (environment variables are only used if explicitly set)
 const getApiKey = (keyName: string, envName: string): string | null => {
-  return import.meta.env[envName] || localStorage.getItem(keyName);
+  // Only use environment variable if it's explicitly set and not empty
+  const envValue = import.meta.env[envName];
+  if (envValue && typeof envValue === 'string' && envValue.trim() !== '') {
+    return envValue;
+  }
+  
+  // Otherwise use localStorage (default behavior)
+  return localStorage.getItem(keyName);
 };
 
 export const generateStory = async (
