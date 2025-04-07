@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Favicon Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      margin: 20px;
+    }
+    .instructions {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Thunder Favicon Generator</h1>
+  
+  <div>
+    <svg id="thunder-svg" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 32 32">
+      <path d="M16,2 L8,18 L14,18 L10,30 L12,30 L24,14 L16,14 Z" 
+            fill="black" 
+            stroke="white" 
+            stroke-width="1"/>
+    </svg>
+  </div>
+  
+  <div>
+    <canvas id="favicon-canvas" width="32" height="32"></canvas>
+  </div>
+  
+  <div>
+    <a id="download-link" download="favicon.ico">Download Favicon</a>
+  </div>
+  
+  <div class="instructions">
+    <h3>Instructions:</h3>
+    <ol>
+      <li>The black and white thunder symbol is shown above</li>
+      <li>Click the "Download Favicon" link to download the favicon.ico file</li>
+      <li>Replace the existing favicon.ico in your project's public folder</li>
+    </ol>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('favicon-canvas');
+      const ctx = canvas.getContext('2d');
+      const svg = document.getElementById('thunder-svg');
+      
+      // Draw white background
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, 32, 32);
+      
+      // Draw the SVG to the canvas
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const img = new Image();
+      img.onload = function() {
+        ctx.drawImage(img, 0, 0, 32, 32);
+        
+        // Create download link
+        const link = document.getElementById('download-link');
+        link.href = canvas.toDataURL('image/png');
+      };
+      img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
+    });
+  </script>
+</body>
+</html>
