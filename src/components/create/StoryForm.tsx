@@ -28,10 +28,8 @@ const StoryForm: React.FC = () => {
       console.log("Using local TTS fallback instead of ElevenLabs");
     }
     
-    if (!localStorage.getItem('stability_api_key')) {
-      localStorage.setItem('stability_api_key', 'sk-XxUQH9uaYKMVK1QrfOYMQQNYVXRJQxGcjWQDyFzjmDXfMFWp');
-      console.log("Stability AI API key has been set");
-    }
+    // Don't set any default API keys - user must provide their own
+    // This ensures the user is explicitly setting their own API keys
     
     localStorage.setItem('use_cloud_api', 'true');
   }, []);

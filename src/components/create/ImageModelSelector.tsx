@@ -47,14 +47,12 @@ const ImageModelSelector: React.FC<ImageModelSelectorProps> = ({
 
   // Check if an API key exists for the initially selected provider
   useEffect(() => {
-    const providerDetails = getProviderDetails(selectedModel);
-    if (providerDetails?.requiresKey) {
-      const savedKey = localStorage.getItem(providerDetails.keyName);
-      if (!savedKey) {
-        setCurrentProvider(selectedModel);
-        setShowApiKeyDialog(true);
-      }
-    }
+    // Don't automatically prompt for API key on initial load
+    // This prevents the automatic API key dialog from appearing
+    // User will need to explicitly select a model that requires an API key
+    
+    // We'll keep the current model selection as is and let the user
+    // explicitly choose a model that might require an API key
   }, []);
 
   const validateApiKey = (key: string, provider: string): boolean => {
